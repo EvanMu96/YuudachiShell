@@ -6,6 +6,7 @@ import socket
 import signal
 import subprocess
 import platform
+import keyboard
 from func import *
 
 built_in_cmds = {}
@@ -72,6 +73,8 @@ def shell_loop():
             cmd_tokens = tokenize(cmd)
             cmd_tokens = preprocess(cmd_tokens)
             status = execute(cmd_tokens)
+            if keyboard.is_pressed('up'):
+                status = execute('history')
         except:
             _, err, _ = sys.exc_info()
             print(err)
@@ -84,6 +87,8 @@ def init():
     register_command("exit", exit)
     register_command("getenv", getenv)
     register_command("history", history)
+    register_command("echo", echo)
+    register_command("man", man)
 
 def main():
     init()

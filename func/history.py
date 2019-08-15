@@ -8,6 +8,9 @@ def history(args):
         if len(args) > 0:
             limit = int(args[0])
         start = len(lines) - limit
+        if last:
+            _, last = lines[-1]
+            sys.stdout.write('s' % (last))
         for line_num, line in enumerate(lines):
             if line_num >= start:
                 sys.stdout.write('%d %s' % (line_num + 1, line))
